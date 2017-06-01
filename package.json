@@ -1,0 +1,26 @@
+{
+  "name": "rgrjs",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "babel-node --presets es2015 server.js --watch",
+    "dev": "nodemon --exec 'yarn start'"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.6",
+    "global": "^4.3.2",
+    "graphql": "^0.10.1",
+    "mongoose": "^4.10.4",
+    "nodemon": "^1.11.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
+}
