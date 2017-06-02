@@ -1,32 +1,37 @@
 import express from 'express';
-let app = express();
-import mongoose from 'mongoose';
-import {Schema } from 'mongoose';
-import schema from './data/schema';
+import Schema from './data/schema';
 import GraphQLHTTP from 'express-graphql';
-import graphql from 'graphql';
-mongoose.connect('mongodb://localhost:relay/relay');
+import mongo from 'promised-mongo';
+import { graphql } from 'graphql';
+import { introspectionQuery , printSchema} from 'graphql/utilities';
+import  fs from 'fs';
 
-const LinksSchema = new Schema({
-    title: String,
-    url: String
-});
 
-const Links = mongoose.model('links', LinksSchema);
-
-// Links({title: "Google" , url: "www.google.com"}).save();
-
+let app = express();
 app.use(express.static('public'));
 
-app.use('/graphql', GraphQLHTTP({
-    schema: schema,
-    graphiql: true
-}))
+(async () => {
+    const db = await mongo('graphql_tutorial');
+    let schema = Schema(db);
 
-app.get('/data/links' , (req, res) => {
-    Links.find({}).then((links) => res.json(links));
-})
+    app.use('/graphql', GraphQLHTTP({
+        schema,
+        graphiql: true
+    }))
+
+    app.listen(3000 , () => console.log('You are live'));
 
 
-app.listen(3000 , () => console.log('You are live'));
+    //Generate schema.json
+    let json = await graphql(schema, introspectionQuery);
+    fs.writeFile('./data/schema.json', JSON.stringify(json, null, 2), err => {
+            if (err) throw err;
+
+        console.log('JSON schema created');
+    });
+})();
+
+
+
+
 
