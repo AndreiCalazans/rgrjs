@@ -18,7 +18,7 @@ class App extends React.Component {
         )
     };
 };
-
+//### UNCOMMENT TO THE CONSOLE.LOG TO SEE ERROR!!!!!!
 // basic example on using Relay.QL
 // console.log(
 //     Relay.QL`{
