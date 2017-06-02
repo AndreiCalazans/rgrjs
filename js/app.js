@@ -20,13 +20,13 @@ class App extends React.Component {
 };
 
 
-console.log(
-    Relay.QL`{
-       query Test {
-            links {}
-       }
-    }`
-)
+// console.log(
+//     Relay.QL`{
+//        query Test {
+//             links {}
+//        }
+//     }`
+// )
 
 
 ReactDOM.render(
