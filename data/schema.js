@@ -8,21 +8,23 @@ import {
 
 let Schema = (db) =>{
 
+//DUMMY data
     let counter = 42;
     let data = [{counter: 33},{counter: 33},{counter: 44}];
 
-    let linkType = new GraphQLObjectType({
-        name: "Counter",
-        fields: () => ({
-            _id: {type: GraphQLString },
-            title: {type: GraphQLString },
-            url: {type: GraphQLString }
-            
-        })
-    });
 
-    let schema = new GraphQLSchema({
-        query: new GraphQLObjectType({
+//TYPES
+let linkType = new GraphQLObjectType({
+    name: "Counter",
+    fields: () => ({
+        _id: {type: GraphQLString },
+        title: {type: GraphQLString },
+        url: {type: GraphQLString }
+        
+    })
+});
+
+const Query = new GraphQLObjectType({
             name: 'Query',
             fields: () => ({
                 counter: {
@@ -34,9 +36,10 @@ let Schema = (db) =>{
                     resolve: () => db.links.find({}).toArray()
                 }
             })
-        }),
+        });
 
-        mutation: new GraphQLObjectType({
+
+const Mutation = new GraphQLObjectType({
             name: 'Mutation',
             fields: () => ({
                 incrementCounter: {
@@ -44,7 +47,14 @@ let Schema = (db) =>{
                     resolve: () => ++counter
                 }
             })
-        })
+        });
+
+
+
+    let schema = new GraphQLSchema({
+        query: Query ,
+
+        mutation: Mutation
     });
     return schema
 }

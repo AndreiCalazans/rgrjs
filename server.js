@@ -11,8 +11,11 @@ let app = express();
 app.use(express.static('public'));
 
 (async () => {
+    // mongo sets up local db by the name you pass to it.
     const db = await mongo('graphql_tutorial');
+    // pass db to the graphql schema
     let schema = Schema(db);
+
 
     app.use('/graphql', GraphQLHTTP({
         schema,
