@@ -1,4 +1,4 @@
-#React + GraphQL + Relay classic 
+<h2>#React + GraphQL + Relay classic</h2> 
 
 
 GRAPHQL SET UP
