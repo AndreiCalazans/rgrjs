@@ -4,32 +4,24 @@ import Main from './components/Main';
 import API from './api';
 import Relay from 'react-relay';
 
-class App extends React.Component {
+//getFragments gets the fragment declared anywhere in the component.
 
-    componentDidMount() {
-         API.fetchLinks()
+class HomeRoute extends Relay.Route {
+    static routeName = "Home";
+    static queries = {
+        store: (Component) => Relay.QL`
+            query MainQuery {
+                store { ${Component.getFragment('store') }}
+            }
+        `
     }
-
-    render() {
-        return (
-            <div>
-                <Main></Main>
-            </div>
-        )
-    };
-};
-//### UNCOMMENT TO THE CONSOLE.LOG TO SEE ERROR!!!!!!
-// basic example on using Relay.QL
-// console.log(
-//     Relay.QL`{
-//        query Test {
-//             links {}
-//        }
-//     }`
-// )
+}
 
 
 ReactDOM.render(
-    <App/>,
+    <Relay.RootContainer 
+        Component={Main}
+        route={new HomeRoute()}
+        />,
     document.getElementById('root')
 )
